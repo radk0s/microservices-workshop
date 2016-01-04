@@ -6,10 +6,11 @@ describe('POST /stock', () => {
         request(app)
             .post('/stock')
             .set('Accept', 'application/json')
-            .send({isbn: 1234567890})
+            .send({isbn: 1234567890, count: 10})
             .expect('Content-Type', /json/)
             .expect(200, {
-                isbn: 1234567890
+                isbn: 1234567890,
+                count: 10
             }, done);
     })
 });
