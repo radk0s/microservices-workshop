@@ -1,7 +1,18 @@
 const express = require('express');
 const app = express();
 
-app.get('/', function (req, res) {
+const logRequest = (req, res, next) => {
+    console.log('log req');
+    next();
+};
+
+const logRequest2 = (req, res, next) => {
+    console.log('log req 2');
+    next();
+};
+
+app.use(logRequest)
+app.get('/', logRequest, function (req, res) {
     res.send('Hello World!');
 });
 
