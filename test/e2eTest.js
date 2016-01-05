@@ -33,6 +33,7 @@ describe('GET /stock/:isbn', () => {
             .then(() => {
                 agent
                     .get('/stock/16')
+                    .set('Accept', 'application/json')
                     .expect(200, {
                         count: 10
                     }, done);

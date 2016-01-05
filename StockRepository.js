@@ -6,7 +6,7 @@ module.exports = {
     getAvailability(isbn){
         return dbClient
             .then(db => db.collection('books').findOne({isbn: isbn}))
-            .then(res => res.count)
+            .then(res => res ? res.count : 0)
     },
     getBooks() {
         return dbClient

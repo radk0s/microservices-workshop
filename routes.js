@@ -10,7 +10,17 @@ module.exports = function(stockRepository) {
         },
         getStockAvailability(req, res) {
             stockRepository.getAvailability(req.params.isbn)
-                .then(count => res.json({count: count}))
+                .then(count => res.format({
+                    'text/html': function(){
+                        res.send(`<p>Book with ISBN ${req.params.isbn} availability: ${count}</p>`);
+                    },
+                    'application/json': function(){
+                        res.json({count: count});
+                    },
+                    'default': function() {
+                        res.status(406).send('Not Acceptable');
+                    }
+                }))
                 .catch(err => res.status(404).send('No book with ISBN ' + req.params.isbn))
         },
         saveBook(req, res) {
